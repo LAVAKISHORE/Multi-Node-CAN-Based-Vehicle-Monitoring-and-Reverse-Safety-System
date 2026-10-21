@@ -506,9 +506,6 @@ These items should be checked during integration; they are not claims that the h
 - LCD interfacing, GPIO active-low outputs, and switch debouncing.
 - State machines, polling versus interrupts, timing constraints, and test-driven hardware bring-up.
 
-## Repository creation to completion
-
-Follow [`docs/GITHUB_SETUP.md`](docs/GITHUB_SETUP.md) for the complete GitHub workflow, including repository creation, upload options, and final verification.
 
 ## Author
 
@@ -517,4 +514,4 @@ Embedded C · LPC2129 · CAN · DS18B20 · HC-SR05
 
 ---
 
-*Documentation is based on the supplied project specification and source archive. Update the media section with your own measured outputs after testing the firmware on the target hardware.*
+*Doc
