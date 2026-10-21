@@ -1,31 +1,19 @@
-# Hardware validation log
+# Hardware testing checklist
 
-Use this checklist during real board testing. Mark each item only after observing it on the actual hardware.
+Mark each item only after testing on the target hardware. The supplied photos are visual evidence of setup/display states, but do not by themselves verify every functional test below.
 
-| Test ID | Test | Result (PASS/FAIL/NOT RUN) | Notes / measurement |
-|---|---|---|---|
-| T01 | Main Node LCD initializes | NOT RUN | |
-| T02 | DS18B20 reading is plausible and stable | NOT RUN | |
-| T03 | Left switch produces CAN ID `0x101`, command `L` | NOT RUN | |
-| T04 | Right switch produces CAN ID `0x101`, command `R` | NOT RUN | |
-| T05 | Indicator Node receives commands and animates LEDs | NOT RUN | |
-| T06 | Mode switch sends CAN ID `0x102` with mode 0/1 | NOT RUN | |
-| T07 | Reverse Node measures distance with no close obstacle | NOT RUN | |
-| T08 | Reverse Node sends CAN ID `0x201` with distance/alert | NOT RUN | |
-| T09 | Obstacle below 20 cm activates the Main Node buzzer | NOT RUN | |
-| T10 | Buzzer turns off when obstacle is outside threshold | NOT RUN | |
-| T11 | CAN communication recovers after a node restart | NOT RUN | |
-| T12 | Sensor disconnected / no echo is handled safely | NOT RUN | |
+- [ ] Build each node firmware separately in the intended Keil/device configuration.
+- [ ] Confirm all nodes use matching CAN bit timing and compatible CAN transceivers.
+- [ ] Confirm CANH/CANL wiring, common ground, and required bus termination.
+- [ ] Verify DS18B20 temperature readings against a known reference.
+- [ ] Verify LCD startup and status display.
+- [ ] Verify left-indicator switch and LED pattern.
+- [ ] Verify right-indicator switch and LED pattern.
+- [ ] Verify forward/reverse mode switching.
+- [ ] Verify ultrasonic readings at several known distances.
+- [ ] Verify reverse alert activates below the configured threshold.
+- [ ] Verify no reverse alert is shown in forward mode.
+- [ ] Test behavior when the ultrasonic echo is absent or out of range.
+- [ ] Record observed CAN IDs, payload bytes, and results in the project notes.
 
-## Test environment
-
-- MCU board and revision:
-- Toolchain/compiler version:
-- CPU clock:
-- Peripheral clock:
-- CAN bit rate:
-- Transceiver:
-- Bus length:
-- Termination:
-- Power supply:
-- Test date:
+Record date, hardware revision, toolchain version, and any failures before marking the project complete.

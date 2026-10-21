@@ -315,34 +315,14 @@ flowchart TD
 ```text
 can-vehicle-monitoring/
 ├── README.md
-├── LICENSE
 ├── .gitignore
-├── include/
-│   ├── can_defines_major.h
-│   ├── can_major.h
-│   ├── DEFINES_MAJOR.h
-│   ├── DELAY_MAJOR.h
-│   ├── DS18B20_MAJOR.h
-│   ├── header.h
-│   ├── major_lcd.h
-│   ├── major_lcd_defines.h
-│   ├── major_type.h
-│   └── buzzer_major.h
+├── include/                         # Original project header files
 ├── src/
-│   ├── main_node/
-│   │   └── main_node.c
-│   ├── indicator_node/
-│   │   └── indicator_node.c
-│   ├── reverse_node/
-│   │   └── reverse_node.c
-│   └── common/
-│       ├── can_driver.c
-│       ├── delay.c
-│       ├── ds18b20.c
-│       ├── lcd.c
-│       ├── ultrasonic.c
-│       ├── buzzer.c
-│       └── interrupts.c
+│   ├── main_node/                   # Main Node application source
+│   ├── indicator_node/              # Indicator Node application source
+│   ├── reverse_node/                # Reverse Alert Node application source
+│   └── common/                      # Original shared driver/module sources
+├── original_source/                 # Exact files as supplied in canproj.zip
 ├── docs/
 │   ├── GITHUB_SETUP.md
 │   ├── TESTING_CHECKLIST.md
@@ -350,31 +330,30 @@ can-vehicle-monitoring/
 │       └── can-system-block-diagram.png
 ├── media/
 │   ├── README.md
-│   ├── screenshots/
-│   └── videos/
+│   ├── images/                      # Actual supplied hardware/output photos
+│   └── videos/                      # Actual supplied indicator demos
 └── examples/
     └── can-message-log-template.csv
 ```
 
-> The duplicate file `can_MAJOR .c` from the archive is not copied as a second driver because it duplicates `can_MAJOR.c`. A single canonical `src/common/can_driver.c` avoids duplicate symbol definitions if a project accidentally compiles both copies.
+The files under `original_source/` preserve the original names and contents from the uploaded ZIP. The `src/` and `include/` folders provide a more navigable layout, but this is not a verified Keil project: review the include paths, startup/device settings, and build configuration before compiling. The archive contains both `can_MAJOR.c` and `can_MAJOR .c`; inspect their differences and compile only the intended CAN-driver implementation to avoid duplicate symbols.
 
 ## Source modules
 
-| File | Responsibility |
+| Organized path | Responsibility |
 |---|---|
-| `main_node/main_node.c` | Main application, temperature display, mode and indicator command generation, reverse alert display |
-| `indicator_node/indicator_node.c` | Receives indicator CAN commands and controls eight LEDs |
-| `reverse_node/reverse_node.c` | Receives mode, reads ultrasonic distance, sends distance/alert data |
-| `common/can_driver.c` | CAN Controller 1 initialization, transmit and receive routines |
-| `common/interrupts.c` | EINT0/EINT1/EINT2 setup and interrupt service routines |
-| `common/ds18b20.c` | DS18B20 1-Wire sensor communication |
-| `common/ultrasonic.c` | HC-SR05 trigger/echo timing and distance calculation |
-| `common/lcd.c` | Character LCD driver |
-| `common/buzzer.c` | Buzzer GPIO control |
-| `common/delay.c` | Delay routines |
-| `include/can_major.h` | CAN frame structure and driver prototypes |
-| `include/can_defines_major.h` | CAN bit timing and register masks |
-| `include/major_type.h` | Project data type aliases |
+| `src/main_node/MAIN_NODE .c` | Main application, temperature display, mode and indicator command generation, reverse alert display |
+| `src/indicator_node/indicator_node.c` | Receives indicator CAN commands and controls indicator LEDs |
+| `src/reverse_node/reverse_node.c` | Receives mode, reads ultrasonic distance, sends distance/alert data |
+| `src/common/can_MAJOR.c` and `src/common/can_MAJOR .c` | CAN driver source copies included in the original archive; inspect before choosing one for a build |
+| `src/common/Interrupt_MAJOR.c` | External-interrupt setup and handlers |
+| `src/common/ds18b20_MAJOR.c` | DS18B20 temperature sensor communication |
+| `src/common/lcd_MAJOR.c` | LCD routines |
+| `src/common/ultrasonic_major.c` | Ultrasonic distance measurement |
+| `src/common/buzzer_MAJOR.c` | Buzzer support |
+| `src/common/delay_MAJOR.c` | Delay utilities |
+
+The organized source files are copied from the uploaded archive without intentional code changes. The `original_source/` directory is included as a reference copy of the archive contents.
 
 ## Build and flash workflow
 
@@ -445,23 +424,50 @@ Add `include/` to the compiler include paths. Confirm the HC-SR05 echo voltage l
 
 Record actual results, board clock, CAN bit rate, compiler version, and any changes in `docs/TESTING_CHECKLIST.md` before describing the project as fully validated.
 
-## Observed outputs and media
+## Observed hardware outputs
 
-The supplied files include the **system block diagram** shown above. The uploaded source archive contains C and header files, but no output screenshots or video recordings were present in the materials available for packaging. To avoid presenting fabricated results, this repository leaves dedicated folders for your real hardware evidence:
+The following photographs were supplied with the project and show the assembled LPC2129-based nodes and LCD outputs. These are **user-provided hardware photos**, not simulated images.
 
-- `media/screenshots/` — add genuine LCD, indicator LED, and reverse-alert output photos/screenshots.
-- `media/videos/` — add genuine demonstration clips of indicator commands and reverse obstacle warning.
-- `media/README.md` — explains recommended file names and how to embed the evidence in this README.
+### Complete three-node setup
 
-Once added, link the files using relative paths, for example:
+![All three CAN nodes connected](media/images/all-three-nodes.jpeg)
 
-```markdown
-![Main Node LCD output](media/screenshots/main-node-lcd.jpg)
+### Main Node and LCD outputs
 
-[Watch reverse alert demonstration](media/videos/reverse-alert-demo.mp4)
-```
+The LCD photographs show the startup message and the displayed engine temperature, indicator status, and selected driving mode.
 
-GitHub displays common image formats directly. For videos, consider uploading the video to a hosting service and linking it, or attach it to a GitHub Release; large binary videos can make a repository clone slow.
+| Startup display | Forward / normal mode | Reverse mode |
+|---|---|---|
+| ![Startup screen](media/images/startup-screen.jpeg) | ![Normal mode LCD](media/images/normal-mode.jpeg) | ![Reverse mode LCD](media/images/reverse-mode.jpeg) |
+
+### Individual node hardware
+
+<details>
+<summary>Main Node hardware</summary>
+
+![Main Node hardware](media/images/main-node.jpeg)
+</details>
+
+<details>
+<summary>Indicator Node hardware</summary>
+
+![Indicator Node hardware](media/images/indicator-node.jpeg)
+</details>
+
+<details>
+<summary>Reverse Alert Node hardware</summary>
+
+![Reverse Alert Node hardware](media/images/reverse-node.jpeg)
+</details>
+
+### Demonstration videos
+
+The two supplied clips demonstrate the left- and right-indicator behavior:
+
+- [▶ Left indicator demonstration video](media/videos/left-indicator-demo.mp4)
+- [▶ Right indicator demonstration video](media/videos/right-indicator-demo.mp4)
+
+GitHub may display MP4 files as downloadable/playable media depending on the page and client. If they do not play inline in the README, open the video link or upload the clips to a GitHub Release and link them here.
 
 ## Known limitations and checks before demo
 

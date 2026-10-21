@@ -1,27 +1,18 @@
 # Project media
 
-Only the block diagram was present in the supplied project document. The source ZIP did not include output screenshots or video recordings, so this directory intentionally contains no fabricated output evidence.
+This folder contains the actual hardware photos and demonstration videos supplied for the CAN vehicle monitoring project.
 
-Add genuine hardware captures here after testing:
+## Images (`images/`)
+- `all-three-nodes.jpeg` — overview of the three-node setup.
+- `main-node.jpeg` — Main Node board.
+- `indicator-node.jpeg` — Indicator Node board.
+- `reverse-node.jpeg` — Reverse Alert Node board.
+- `startup-screen.jpeg` — startup LCD message.
+- `normal-mode.jpeg` — forward/normal-mode LCD display.
+- `reverse-mode.jpeg` — reverse-mode LCD display.
 
-## Screenshots / photos
+## Videos (`videos/`)
+- `left-indicator-demo.mp4` — left-indicator demonstration.
+- `right-indicator-demo.mp4` — right-indicator demonstration.
 
-- `screenshots/main-node-lcd.jpg`
-- `screenshots/left-indicator-leds.jpg`
-- `screenshots/right-indicator-leds.jpg`
-- `screenshots/reverse-alert-close-obstacle.jpg`
-
-## Videos
-
-- `videos/indicator-node-demo.mp4`
-- `videos/reverse-alert-demo.mp4`
-
-Keep images reasonably sized. For larger videos, host the clip externally or attach it to a GitHub Release, then link it from the main README.
-
-Example README markup:
-
-```markdown
-![Main Node LCD output](media/screenshots/main-node-lcd.jpg)
-
-[Watch reverse alert demonstration](media/videos/reverse-alert-demo.mp4)
-```
+The README references these files using relative paths. Keep the folder structure unchanged when uploading the repository to GitHub.
