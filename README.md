@@ -27,9 +27,7 @@
 - [Bring-up and testing checklist](#bring-up-and-testing-checklist)
 - [Observed outputs and media](#observed-outputs-and-media)
 - [Known limitations and checks before demo](#known-limitations-and-checks-before-demo)
-- [Future scope](#future-scope)
 - [Concepts to prepare](#concepts-to-prepare)
-- [Repository creation to completion](#repository-creation-to-completion)
 - [Author](#author)
 
 ## Overview
@@ -482,18 +480,6 @@ These items should be checked during integration; they are not claims that the h
 - **Ultrasonic timeout:** confirm timeout handling for missing echo and out-of-range readings.
 - **Indicator behavior:** the LED animation loops block while the pattern is playing; consider a timer/state-machine implementation if switch commands must be responsive during animation.
 - **Safety scope:** this is an educational prototype, not a certified automotive safety system. Do not connect it to vehicle-critical controls without professional automotive engineering, protection, and validation.
-
-## Future scope
-
-- Add CAN error counters and recovery handling.
-- Add non-blocking indicator animation using timers/state machines.
-- Add a robust CAN receive loop with message validation and timeout handling.
-- Add sensor filtering and a defined out-of-range/fault state for the ultrasonic sensor.
-- Add temperature warning thresholds and configurable alerts.
-- Add diagnostic UART logging for CAN IDs, payloads, and sensor readings.
-- Add a dashboard or data logger for temperature, mode, distance, and indicator events.
-- Extend the system to additional CAN nodes, such as a battery-monitoring or door-status node.
-- For real vehicle use, design for automotive transients, EMC, fault containment, watchdogs, and fail-safe behavior.
 
 ## Concepts to prepare
 
