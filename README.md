@@ -500,4 +500,3 @@ Embedded C · LPC2129 · CAN · DS18B20 · HC-SR05
 
 ---
 
-*Doc
